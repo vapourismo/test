@@ -13,11 +13,13 @@
 #define COLOR_WHITE 		"\033[0;37m"
 #define COLOR_CLEAR 		"\033[0m"
 
+typedef enum {
+	TEST_PASSED,
+	TEST_FAILED
+} __test_status;
+
 typedef struct {
-	enum {
-		TEST_FAILED,
-		TEST_PASSED
-	} status;
+	__test_status status;
 	const char* message;
 	const char* file;
 	int line;
