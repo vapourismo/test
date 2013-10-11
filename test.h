@@ -3,15 +3,15 @@
 
 #include <features.h>
 
-#define COLOR_BLACK 		"\033[0;30m"
-#define COLOR_RED 			"\033[0;31m"
-#define COLOR_GREEN 		"\033[0;32m"
-#define COLOR_YELLOW 		"\033[0;33m"
-#define COLOR_BLUE 			"\033[0;34m"
-#define COLOR_PINK 			"\033[0;35m"
-#define COLOR_CYAN 			"\033[0;36m"
-#define COLOR_WHITE 		"\033[0;37m"
-#define COLOR_CLEAR 		"\033[0m"
+#define TERM_COLOR_BLACK 		"\033[0;30m"
+#define TERM_COLOR_RED 			"\033[0;31m"
+#define TERM_COLOR_GREEN 		"\033[0;32m"
+#define TERM_COLOR_YELLOW 		"\033[0;33m"
+#define TERM_COLOR_BLUE 		"\033[0;34m"
+#define TERM_COLOR_PINK 		"\033[0;35m"
+#define TERM_COLOR_CYAN 		"\033[0;36m"
+#define TERM_COLOR_WHITE 		"\033[0;37m"
+#define TERM_COLOR_CLEAR 		"\033[0m"
 
 typedef enum {
 	TEST_PASSED,
@@ -26,19 +26,19 @@ typedef struct {
 } __test_result;
 
 #define __test_name(name) __test_x_##name
-#define __test_passed(name) printf("> " COLOR_BLUE "%s" COLOR_CLEAR " ~ " COLOR_GREEN "%s" COLOR_CLEAR " \n", name, "passed")
-#define __test_passed_msg(name, msg) printf("> " COLOR_BLUE "%s" COLOR_CLEAR " ~ " COLOR_GREEN "%s" COLOR_CLEAR ": %s \n", name, "passed", msg)
-#define __test_failed(name, reason, file, line) printf("> " COLOR_BLUE "%s" COLOR_CLEAR " ~ " COLOR_RED "%s" COLOR_CLEAR " in " COLOR_BLUE "%s:%i" COLOR_CLEAR ": %s\n", name, "failed", file, line, reason)
+#define __test_passed(name) printf("> " TERM_COLOR_BLUE "%s" TERM_COLOR_CLEAR " ~ " TERM_COLOR_GREEN "%s" TERM_COLOR_CLEAR " \n", name, "passed")
+#define __test_passed_msg(name, msg) printf("> " TERM_COLOR_BLUE "%s" TERM_COLOR_CLEAR " ~ " TERM_COLOR_GREEN "%s" TERM_COLOR_CLEAR ": %s \n", name, "passed", msg)
+#define __test_failed(name, reason, file, line) printf("> " TERM_COLOR_BLUE "%s" TERM_COLOR_CLEAR " ~ " TERM_COLOR_RED "%s" TERM_COLOR_CLEAR " in " TERM_COLOR_BLUE "%s:%i" TERM_COLOR_CLEAR ": %s\n", name, "failed", file, line, reason)
 
 /**
  * Indicate the start of a new section
  * Example:
  *     test_section("Main Tests");
- *     test_run(test1)
- *     test_run(test2)
- *     test_run(test3)
+ *     test_run(test1);
+ *     test_run(test2);
+ *     test_run(test3);
  */
-#define test_section(section) printf("[ " COLOR_PINK "%s" COLOR_CLEAR " ]\n", section)
+#define test_section(section) printf("[ " TERM_COLOR_PINK "%s" TERM_COLOR_CLEAR " ]\n", section)
 
 /**
  * If expr evaluates to false, mark the current test as failed and print expr.
