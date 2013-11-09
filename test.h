@@ -1,6 +1,11 @@
 #ifndef TEST_TEST_H
 #define TEST_TEST_H
 
+/* C++ */
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include <features.h>
 
 #define TERM_COLOR_BLACK 		"\033[0;30m"
@@ -85,5 +90,10 @@ typedef struct {
  *     }
  */
 #define test_new(name) __test_result __test_name(name)()
+
+/* C++ */
+#ifdef __cplusplus
+}
+#endif
 
 #endif
