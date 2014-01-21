@@ -8,6 +8,7 @@ extern "C" {
 
 #include <features.h>
 #include <stddef.h>
+#include <stdio.h>
 
 #define TERM_COLOR_BLACK 		"\033[0;30m"
 #define TERM_COLOR_RED 			"\033[0;31m"
