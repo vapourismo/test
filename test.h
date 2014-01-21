@@ -33,9 +33,9 @@ typedef struct {
 } __test_result;
 
 #define __test_name(name) __test_x_##name
-#define __test_passed(name) printf("> " TERM_COLOR_BLUE "%s" TERM_COLOR_CLEAR " ~ " TERM_COLOR_GREEN "%s" TERM_COLOR_CLEAR " \n", name, "passed")
-#define __test_passed_msg(name, msg) printf("> " TERM_COLOR_BLUE "%s" TERM_COLOR_CLEAR " ~ " TERM_COLOR_GREEN "%s" TERM_COLOR_CLEAR ": %s \n", name, "passed", msg)
-#define __test_failed(name, reason, file, line) printf("> " TERM_COLOR_BLUE "%s" TERM_COLOR_CLEAR " ~ " TERM_COLOR_RED "%s" TERM_COLOR_CLEAR " in " TERM_COLOR_BLUE "%s:%i" TERM_COLOR_CLEAR ": %s\n", name, "failed", file, line, reason)
+#define __test_passed(name) { printf("> " TERM_COLOR_BLUE "%s" TERM_COLOR_CLEAR " ~ " TERM_COLOR_GREEN "%s" TERM_COLOR_CLEAR " \n", name, "passed"); }
+#define __test_passed_msg(name, msg) { printf("> " TERM_COLOR_BLUE "%s" TERM_COLOR_CLEAR " ~ " TERM_COLOR_GREEN "%s" TERM_COLOR_CLEAR ": %s \n", name, "passed", msg); }
+#define __test_failed(name, reason, file, line) { printf("> " TERM_COLOR_BLUE "%s" TERM_COLOR_CLEAR " ~ " TERM_COLOR_RED "%s" TERM_COLOR_CLEAR " in " TERM_COLOR_BLUE "%s:%i" TERM_COLOR_CLEAR ": %s\n", name, "failed", file, line, reason); }
 
 /**
  * Indicate the start of a new section
