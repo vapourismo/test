@@ -1,11 +1,6 @@
 #ifndef TEST_TEST_H
 #define TEST_TEST_H
 
-/* C++ */
-// #ifdef __cplusplus
-// extern "C" {
-// #endif
-
 #include <features.h>
 #include <stddef.h>
 #include <stdio.h>
@@ -54,14 +49,14 @@ typedef struct {
  * Example:
  *     assert(add(2 + 3) == 5);
  */
-#define assert(expr) { if (!(expr)) { __test_result tr = {TEST_FAILED, strcpy(malloc(strlen(__STRING(expr)) + 1), __STRING(expr)), __FILE__, __LINE__}; return tr; } }
+#define assert(expr) { if (!(expr)) { __test_result tr = {TEST_FAILED, strcpy((char*) malloc(strlen(__STRING(expr)) + 1), __STRING(expr)), __FILE__, __LINE__}; return tr; } }
 
 /**
  * If expr evaluates to false, mark the current test as failed and print msg.
  * Example:
  *     assert_msg(2 == 3, "Obviously a user error");
  */
-#define assert_msg(expr, msg) { if (!(expr)) { __test_result tr = {TEST_FAILED, strcpy(malloc(strlen(msg) + 1), msg), __FILE__, __LINE__}; return tr; } }
+#define assert_msg(expr, msg) { if (!(expr)) { __test_result tr = {TEST_FAILED, strcpy((char*) malloc(strlen(msg) + 1), msg), __FILE__, __LINE__}; return tr; } }
 
 /**
  * Mark the current test as finished and exit.
@@ -94,10 +89,5 @@ typedef struct {
  *     }
  */
 #define test_new(name) __test_result __test_name(name)()
-
-/* C++ */
-// #ifdef __cplusplus
-// }
-// #endif
 
 #endif
