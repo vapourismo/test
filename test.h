@@ -2,13 +2,15 @@
 #define TEST_TEST_H
 
 /* C++ */
-#ifdef __cplusplus
-extern "C" {
-#endif
+// #ifdef __cplusplus
+// extern "C" {
+// #endif
 
 #include <features.h>
 #include <stddef.h>
 #include <stdio.h>
+#include <malloc.h>
+#include <string.h>
 
 #define TERM_COLOR_BLACK 		"\033[0;30m"
 #define TERM_COLOR_RED 			"\033[0;31m"
@@ -27,7 +29,7 @@ typedef enum {
 
 typedef struct {
 	__test_status status;
-	const char* message;
+	char* message;
 	const char* file;
 	int line;
 } __test_result;
@@ -52,14 +54,14 @@ typedef struct {
  * Example:
  *     assert(add(2 + 3) == 5);
  */
-#define assert(expr) if(!(expr)){ __test_result tr = {TEST_FAILED, __STRING(expr), __FILE__, __LINE__}; return tr; }
+#define assert(expr) { if (!(expr)) { __test_result tr = {TEST_FAILED, strcpy(malloc(strlen(__STRING(expr)) + 1), __STRING(expr)), __FILE__, __LINE__}; return tr; } }
 
 /**
  * If expr evaluates to false, mark the current test as failed and print msg.
  * Example:
  *     assert_msg(2 == 3, "Obviously a user error");
  */
-#define assert_msg(expr, msg) if(!(expr)){ __test_result tr = {TEST_FAILED, msg, __FILE__, __LINE__}; return tr; }
+#define assert_msg(expr, msg) { if (!(expr)) { __test_result tr = {TEST_FAILED, strcpy(malloc(strlen(msg) + 1), msg), __FILE__, __LINE__}; return tr; } }
 
 /**
  * Mark the current test as finished and exit.
@@ -69,19 +71,19 @@ typedef struct {
 /**
  * Mark the current test as finish and exit with a message.
  */
-#define test_finish_msg(msg) { __test_result tr = {TEST_PASSED, msg, __FILE__, __LINE__}; return tr; }
+#define test_finish_msg(msg) { __test_result tr = {TEST_PASSED, strcpy((char*) malloc(strlen(msg) + 1), msg), __FILE__, __LINE__}; return tr; }
 
 /**
  * Mark the current test as failed and exit with a message.
  */
-#define test_fail(msg) { __test_result tr = {TEST_FAILED, msg, __FILE__, __LINE__}; return tr; }
+#define test_fail(msg) { __test_result tr = {TEST_FAILED, strcpy((char*) malloc(strlen(msg) + 1), msg), __FILE__, __LINE__}; return tr; }
 
 /**
  * Run a test.
  * Example:
  *     test_run(my_test);
  */
-#define test_run(name) { __test_result tr = __test_name(name)(); if(tr.status == TEST_FAILED){ __test_failed(__STRING(name), tr.message, tr.file, tr.line); }else{ if(tr.message){ __test_passed_msg(__STRING(name), tr.message); }else{ __test_passed(__STRING(name)); } } }
+#define test_run(name) { __test_result tr = __test_name(name)(); if (tr.status == TEST_FAILED) { __test_failed(__STRING(name), tr.message, tr.file, tr.line); } else { if (tr.message) { __test_passed_msg(__STRING(name), tr.message); } else { __test_passed(__STRING(name)); } } if (tr.message) { free(tr.message); } }
 
 /**
  * Create a new test.
@@ -94,8 +96,8 @@ typedef struct {
 #define test_new(name) __test_result __test_name(name)()
 
 /* C++ */
-#ifdef __cplusplus
-}
-#endif
+// #ifdef __cplusplus
+// }
+// #endif
 
 #endif
